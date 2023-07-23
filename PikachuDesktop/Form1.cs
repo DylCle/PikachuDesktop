@@ -9,6 +9,8 @@ namespace PikachuDesktop
         private Point lastCursorPosition;
         private PictureBox pikachuBox;
         private System.Timers.Timer timer;
+ 
+     
         public Form1()
         {
             InitializeComponent();
@@ -17,7 +19,8 @@ namespace PikachuDesktop
             this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Size = new Size(120, 100);
-            this.TransparencyKey = this.BackColor;
+            this.BackColor = Color.DarkBlue;
+            this.TransparencyKey = Color.DarkBlue;
 
             this.TopMost = true;
 
@@ -30,13 +33,12 @@ namespace PikachuDesktop
             pikachuBox.MouseDown += PictureBox_MouseDown;
             pikachuBox.MouseMove += PictureBox_MouseMove;
             pikachuBox.MouseUp += PictureBox_MouseUp;
+            pikachuBox.MouseDoubleClick += PictureBox_MouseDoubleClick;
 
    
 
             this.Controls.Add(pikachuBox);
         }
-
-   
 
         private void GlobalMouseHook_DoubleClick(object sender, Point e)
         {
@@ -174,6 +176,21 @@ namespace PikachuDesktop
             
             isDragging = false;
         }
+
+        private void PictureBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            lastCursorPosition = Cursor.Position;
+            Form2 f2 = new Form2();
+            f2.StartPosition = FormStartPosition.Manual;
+            f2.Location = lastCursorPosition;
+            f2.Show();
+        }
+
+        private void InfoForm_Show()
+        {
+
+        }
+
     }
 
 }

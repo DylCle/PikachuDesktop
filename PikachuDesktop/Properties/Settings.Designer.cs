@@ -22,5 +22,7 @@ namespace PikachuDesktop.Properties {
                 return defaultInstance;
             }
         }
+
+        public string Name { get; internal set; }
     }
 }
