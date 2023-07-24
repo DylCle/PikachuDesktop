@@ -34,8 +34,11 @@ namespace PikachuDesktop
             pikachuBox.MouseMove += PictureBox_MouseMove;
             pikachuBox.MouseUp += PictureBox_MouseUp;
             pikachuBox.MouseDoubleClick += PictureBox_MouseDoubleClick;
+            pikachuBox.DragEnter += PictureBox_DragEnter;
+            pikachuBox.DragEnter += PictureBox1_DragDrop;
+       
 
-   
+
 
             this.Controls.Add(pikachuBox);
         }
@@ -126,6 +129,28 @@ namespace PikachuDesktop
             private static extern IntPtr GetModuleHandle(string lpModuleName);
         }
 
+    
+
+        public void PictureBox_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.Bitmap))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        public void PictureBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetData(DataFormats.Bitmap) is Image image)
+            {
+                pikachuBox.Image = image;
+            }
+        }
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             GlobalMouseHook.Stop();
@@ -151,6 +176,7 @@ namespace PikachuDesktop
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
             isDragging = false;
+            MessageBox.Show("et");
         }
 
         private void PictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -173,7 +199,7 @@ namespace PikachuDesktop
 
         private void PictureBox_MouseUp(object sender, MouseEventArgs e)
         {
-            
+          
             isDragging = false;
         }
 
@@ -191,6 +217,13 @@ namespace PikachuDesktop
 
         }
 
+        private void Form1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.Bitmap))
+            {
+                
+            }
+        }
     }
 
 }
